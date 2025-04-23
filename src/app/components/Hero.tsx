@@ -16,9 +16,6 @@ export default function Hero() {
   const headerButtonsRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const howItWorksRef = useRef<HTMLDivElement>(null);
-  const teamRef = useRef<HTMLDivElement>(null);
-  const tryDemoRef = useRef<HTMLDivElement>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   const handlePlayVideo = () => {
     if (videoRef.current) {
@@ -44,8 +41,7 @@ export default function Hero() {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          setIsScrolled(!entry.isIntersecting);
-          // Pause/play video based on visibility
+          // Pause play video based on visibility
           if (videoRef.current && isVideoPlaying) {
             if (entry.isIntersecting) {
               videoRef.current.play();
@@ -63,11 +59,11 @@ export default function Hero() {
     return () => observerRef.current?.disconnect();
   }, [isVideoPlaying]);
 
-  // Logo zoom and background transition animation
+  // Logo spin and background transition animation
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
-        delay: 2, // 2-second initial delay
+        delay: 1.5, // Slightly reduced delay for faster transition
         onComplete: () => {
           setShowContent(true);
           // Fade out landing section
@@ -81,21 +77,21 @@ export default function Hero() {
         }
       });
 
-      // Initial animation sequence
+      // Logo spin animation for 2 seconds
       tl.to(logoRef.current, {
-        scale: 1.2,
-        duration: 0.5,
-        ease: "power2.out",
-        yoyo: true,
-        repeat: 1
+        rotation: 360, // Spin 360 degrees
+        duration: 2,   // 2 seconds duration
+        ease: "linear"
       }, 0);
 
+      // Zoom-out and color transition for 1 second, with the theme orange
       tl.to(overlayRef.current, {
         scale: 30,
         opacity: 1,
         duration: 1,
         ease: "power4.inOut",
-        transformOrigin: "center center"
+        transformOrigin: "center center",
+        backgroundColor: "#e84b35" // Orange color for the theme
       }, 0);
 
       tl.to(logoRef.current, {
@@ -104,16 +100,17 @@ export default function Hero() {
         ease: "power4.inOut"
       }, 0);
 
+      // Slide in the video overlay from the right side
+      tl.to(whiteOverlayRef.current, {
+        x: '0%',
+        duration: 1,
+        ease: "power2.inOut"
+      }, "-=0.5");
+
       // Fade in header logo and slide in white overlay
       tl.to(headerLogoRef.current, {
         opacity: 1,
         duration: 0.5,
-        ease: "power2.inOut"
-      }, "-=0.5");
-
-      tl.to(whiteOverlayRef.current, {
-        x: '0%',
-        duration: 1,
         ease: "power2.inOut"
       }, "-=0.5");
 
@@ -138,17 +135,17 @@ export default function Hero() {
           <div ref={backgroundRef} className="absolute inset-0 flex items-center justify-center bg-white">
             <div ref={logoRef} className="w-32 h-32 relative">
               <Image
-                src="/images/logo.png"
+                src="/images/logo2.png" // Updated logo image path
                 alt="Audimate Logo"
                 fill
                 className="object-contain"
                 priority
               />
             </div>
-            {/* Navy blue overlay - starts small and centered */}
+            {/* Theme orange overlay - starts small and centered */}
             <div 
               ref={overlayRef} 
-              className="absolute w-32 h-32 bg-[#001f3f] opacity-0"
+              className="absolute w-32 h-32 opacity-0"
               style={{ transformOrigin: 'center center' }}
             />
             {/* Video overlay - starts off screen to the right */}
@@ -165,6 +162,7 @@ export default function Hero() {
                 playsInline
                 autoPlay
                 preload="auto"
+                onClick={handlePlayVideo}
               >
                 <source src="/images/audimate-exp-v0.mp4" type="video/mp4" />
               </video>
@@ -172,7 +170,7 @@ export default function Hero() {
             {/* Header logo - starts invisible */}
             <div 
               ref={headerLogoRef} 
-              className="absolute top-4 left-4 w-16 h-16 opacity-0"
+              className="absolute top-4 left-4 w-24 h-24 opacity-0"
             >
               <Image
                 src="/images/logo.png"
@@ -209,8 +207,8 @@ export default function Hero() {
       {showContent && (
         <div className="relative">
           {/* Header with logo and navigation - always visible */}
-          <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-4 py-2 bg-white/10 backdrop-blur-sm">
-            <div className="w-12 h-12 relative">
+          <header className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-2 py-1 bg-white/10 backdrop-blur-sm">
+            <div className="w-24 h-24 relative">
               <Image
                 src="/images/logo.png"
                 alt="Audimate Logo"
@@ -245,7 +243,7 @@ export default function Hero() {
               autoPlay
               preload="auto"
             >
-              <source src="/images/audimate-exp-v0.mp4" type="video/mp4" />
+              <source src="/images/audimate-exp-v3.mp4" type="video/mp4" />
             </video>
           </div>
           
@@ -253,23 +251,21 @@ export default function Hero() {
           <div className="h-screen"></div>
           
           {/* Tagline section */}
-          <section className="relative bg-[#001f3f]">
+          <section className="relative bg-gradient-to-b from-[#e84b35] to-white">
             <div className="flex flex-col items-center justify-center text-center px-4 py-12">
-              <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white">
+              <h1 className="text-4xl md:text-6xl font-bold mb-4 text-[#0f2a39]">
                 AI-Powered Casting Assistant
               </h1>
-              <h2 className="text-2xl md:text-3xl text-gray-300 mb-6">
+              <h2 className="text-2xl md:text-3xl mb-6 text-[#0f2a39]">
                 for Saudi Film Industry
               </h2>
-
               <button
                 onClick={scrollToHowItWorks}
-                className="px-8 py-3 bg-white hover:bg-gray-200 rounded-full text-lg font-semibold text-[#001f3f] transition-colors duration-300"
+                className="px-8 py-3 bg-white text-lg font-semibold text-[#e84b35] rounded-full transition-colors duration-300 hover:bg-[#fabd96] hover:text-[#0f2a39] hover:border hover:border-[#0f2a39]"
               >
                 How It Works
               </button>
             </div>
-
             {/* Scroll target for other sections */}
             <div ref={howItWorksRef}></div>
           </section>

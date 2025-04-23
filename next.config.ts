@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  
+    "compilerOptions": {
+      "jsx": "react-jsx"
+    }
+  
+  };
 
 export default nextConfig;

@@ -10,16 +10,14 @@ export default function LoadingScreen() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Create bouncing animation
-      const bounce = gsap.to(logoRef.current, {
-        y: -20,
-        duration: 0.5,
-        ease: "power2.out",
-        yoyo: true,
-        repeat: -1
+      // Logo spin animation
+      const spin = gsap.to(logoRef.current, {
+        rotation: 360,
+        duration: 2,
+        ease: "none",
       });
 
-      // Set timeout to hide loading screen
+      // Set timeout to hide loading screen after 2 seconds
       setTimeout(() => {
         gsap.to(logoRef.current, {
           opacity: 0,
@@ -29,7 +27,7 @@ export default function LoadingScreen() {
       }, 2000);
 
       return () => {
-        bounce.kill();
+        spin.kill();
       };
     });
 
@@ -42,7 +40,7 @@ export default function LoadingScreen() {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
       <div ref={logoRef} className="w-32 h-32 relative">
         <Image
-          src="/images/logo.png"
+          src="/images/logo2.png"
           alt="Audimate Logo"
           fill
           className="object-contain"
@@ -51,4 +49,4 @@ export default function LoadingScreen() {
       </div>
     </div>
   );
-} 
+}

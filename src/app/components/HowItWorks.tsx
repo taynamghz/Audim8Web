@@ -5,9 +5,14 @@ import { BsArrowRight } from 'react-icons/bs';
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-24 bg-[#001f3f]">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-20 text-white">
+    <section
+      id="how-it-works"
+      className="relative py-24 bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url('/images/webavy.png')" }}
+    >
+
+      <div className="container mx-auto px-4 relative z-10">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-20 text-[#e84b35]">
           How It Works
         </h2>
 
@@ -67,4 +72,4 @@ export default function HowItWorks() {
       </div>
     </section>
   );
-} 
+}

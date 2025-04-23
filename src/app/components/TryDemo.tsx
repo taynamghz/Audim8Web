@@ -12,7 +12,6 @@ export default function TryDemo() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Create animation timeline
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: sectionRef.current,
@@ -22,7 +21,6 @@ export default function TryDemo() {
       }
     });
 
-    // Animate elements
     tl.fromTo(
       '.demo-content',
       { y: 50, opacity: 0 },
@@ -35,45 +33,30 @@ export default function TryDemo() {
   }, []);
 
   const handleTryDemo = () => {
-    router.push('/demo');
+    router.push('/demo'); // Navigate to the demo page
   };
 
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen bg-[#0A0F1C] relative overflow-hidden"
+      className="min-h-screen bg-[linear-gradient(to_bottom,_#0f2a39_0%,_#0f2a39_5%,_white_30%,_white_100%)] overflow-hidden"
     >
-      {/* Video Background */}
-      <div className="absolute inset-0 z-0">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src="/videos/background.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-[#0A0F1C]/80" />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl w-full text-center demo-content">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-8">
+      <div className="min-h-screen flex flex-col items-center justify-center px-6 sm:px-10 lg:px-20">
+        <div className="max-w-5xl w-full text-center demo-content">
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-[#e84b35] mb-10 leading-tight">
             Ready to Experience Audimate?
           </h2>
-          <p className="text-xl text-gray-300 mb-12">
+          <p className="text-2xl sm:text-3xl text-[#0f2a39] mb-14 font-medium">
             Try our demo and see how Audimate can transform your audio production workflow.
           </p>
           <button
             onClick={handleTryDemo}
-            className="bg-white text-[#0A0F1C] px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-colors duration-300"
+            className="px-10 py-5 text-xl sm:text-2xl font-bold text-white bg-[#e84b35] rounded-full shadow-lg hover:bg-[#d13e2c] hover:scale-105 transition-all duration-300 ease-in-out"
           >
-            Try Demo
+            🚀 Try Demo
           </button>
         </div>
       </div>
     </section>
   );
-} 
+}
