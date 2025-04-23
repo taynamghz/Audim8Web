@@ -1,6 +1,7 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import React from 'react';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -8,19 +9,21 @@ export default function Footer() {
 
       {/* Logo in the bottom-left corner */}
       <div className="absolute bottom-8 left-8 z-50">
-        <img 
-          src="/images/logo2.png" // Logo path
+        <Image 
+          src="/images/lgoo.png" // Make sure this path is correct and starts with /
           alt="Logo" 
-          className="w-20 h-40" // Adjust the logo size if needed
+          width={100} 
+          height={30}
         />
       </div>
 
       {/* Film tape image in the bottom-right corner */}
       <div className="absolute bottom-8 right-8 z-50">
-        <img 
-          src="/images/filmTape3.png" // Path to the film tape image
+        <Image 
+          src="/images/filmTape3.png"
           alt="Film Tape"
-          className="w-180 h-90" // Adjust the size as needed
+          width={180} 
+          height={90}
         />
       </div>
     </footer>
